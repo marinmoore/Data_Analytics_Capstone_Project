@@ -1,0 +1,163 @@
+---
+title: "Tracking & Predicting Antisemitic and Anti-LGBTQ+ Hate Crimes in the United States"
+author: "Emily Diamond & Marin Moore"
+institute: "Dickinson College"
+date: "2026-05-12"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#50B4C8",
+  link_color = "#50B4C8",
+  header_font_google = google_font("Open Sans"),
+  text_font_google   = google_font("Fira Mono"),
+  code_font_google   = google_font("Fira Mono"),
+  header_h1_font_size = "2.75rem",
+  header_h2_font_size = "2rem",
+  header_h3_font_size = "1.5rem",
+  text_font_size = "1.25rem",
+  padding = "0px 64px 16px 64px",
+  header_background_padding = "4rem",
+  table_border_color = "#FFFFFF"
+)
+```
+# The FBI Hate Crimes Dataset
+
+This dataset includes all hate crimes reported to the FBI from 1991 to 2024.
+
+--
+
+Features include:
+- Geographic data (city, state, region)
+- Offender data (count, age, race, ethnicity)
+- Victim data (count, age, race, ethnicity)
+- Incident data (offense type, bias type)
+
+--
+
+For EDA, we selected only data from the years 2015 to 2024 to ensure data relevance. For correlation and regression analysis, we selected only data from 2024 to evaluate contemporary influencing factors rather than changes over time. 
+
+---
+# Basic EDA
+
+<center>
+<img src="Presentation Images/AllCrimes2015-2024.png" style="width: 80%;" /> 
+</center>
+
+---
+# Basic EDA
+
+.pull-left[<center>
+<img src="Presentation Images/Antisemitic2015-2024.png" style="width: 100%;" /> 
+</center>]
+
+.pull-right[<center>
+<img src="Presentation Images/AntiLGBTQ2015-2024.png" style="width: 100%;" /> 
+</center>]
+
+---
+class: inverse
+
+<img src="Presentation Images/LGBTQbyGroup2015-2024.png" style="width: 100%;" />
+
+---
+# Basic EDA
+
+<center>
+<img src="Presentation Images/AllCrimesMap2015-2024.png" style="width: 85%;" /> 
+</center>
+
+---
+# Basic EDA
+
+<center>
+<img src="Presentation Images/AntisemiticMap2015-2024.png" style="width: 85%;" /> 
+</center>
+
+---
+# Basic EDA
+
+<center>
+<img src="Presentation Images/AntiLGBTQMap2015-2024.png" style="width: 85%;" /> 
+</center>
+
+---
+# Secondary Data Sources
+
+- U.S. Census Bureau: state population, population density, % of population in poverty, median household income, and Diversity Index.
+
+--
+
+- Jewish Virtual Library: Jewish population per state.
+
+--
+
+- World Population Review: state Political Voting Index (PVI).
+
+--
+
+- Human Rights Campaign: State Equality Index (SEI).
+
+--
+
+- Movement Advancement Project: state LGBTQ+ hate crime law protections.
+
+--
+
+- American Civil Liberties Union: state-level anti-LGBTQ+ bills introduced.
+
+---
+# Simple Correlation Analysis
+
+<center>
+<img src="Presentation Images/AllCrimesCorrelations.png" style="width: 100%;" /> 
+</center>
+
+---
+# Simple Correlation Analysis
+
+<center>
+<img src="Presentation Images/AntisemiticCorrelations.png" style="width: 100%;" /> 
+</center>
+
+---
+# Simple Correlation Analysis
+
+<center>
+<img src="Presentation Images/AntiLGBTQCorrelations.png" style="width: 100%;" /> 
+</center>
+
+---
+# Conclusions from the Correlation Analysis
+
+States with a more Democratic-leaning PVI, states with higher LGBTQ+ legal equality, and states with stronger hate crime protections report higher numbers of hate crimes per 100,000 residents. 
+
+This is likely because such states tend to have more robust hate crime reporting procedures than Republican-leaning states with low LGBTQ+ equality and hate crime protections.
+
+---
+# Ethical Implications
+
+The amount of fear, hatred, and social unrest has been on the rise in the United States. Jewish Temples are being attacked, queer and transgender individuals are being violently targeted, and so much more.  Many Americans are in a constant state of fear by simply existing. 
+
+As the rise of hate crimes continues, it is critical that actions be taken to protect victims and prevent future crimes. Hate crime protection laws must be stricter and hate crime incident investigation and reporting must be improved.
+
+---
+# Implications for Stakeholders
+
+Stakeholders in this research include Jewish and LGBTQ+ Americans, legislators and policymakers, law enforcement, lawyers and activist organizations. Additionally, all American citizens are impacted by these incidents because the proliferation of hate-motivated crimes threatens individual/group safety and national unity. This issue affects everyone.
+
+Understanding the factors which correlate with antisemitic and anti-LGBTQ+ hate crimes is necessary for implementing effective preventative and protective measures. Without this understanding, the rate of these incidents will continue to rise.
+
+---
+# Current Work in Progress
+
+We are currently working on three regression models (with all hate crimes, antisemitic hate crimes, and anti-LGBTQ+ hate crimes, respectively, as the dependent variables) and the secondary variables identified earlier as the independent variables. 

@@ -1,0 +1,128 @@
+---
+title: "Tracking & Predicting Antisemitic and Anti-LGBTQ+ Hate Crimes in the United States"
+author: "Emily Diamond & Marin Moore"
+institute: "Dickinson College"
+date: "2026-03-24"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#50B4C8",
+  link_color = "#50B4C8",
+  header_font_google = google_font("Open Sans"),
+  text_font_google   = google_font("Fira Mono"),
+  code_font_google   = google_font("Fira Mono"),
+  header_h1_font_size = "2.75rem",
+  header_h2_font_size = "2rem",
+  header_h3_font_size = "1.5rem",
+  text_font_size = "1.5rem",
+  padding = "0px 64px 16px 64px",
+  header_background_padding = "4rem",
+  table_border_color = "#FFFFFF"
+)
+```
+# The FBI Hate Crimes Dataset
+
+This dataset includes all hate crimes reported to the FBI from 1991 to 2024.
+
+--
+
+Features include:
+- Geographic data (city, state, region)
+- Offender data (count, age, race, ethnicity)
+- Victim data (count, age, race, ethnicity)
+- Incident data (offense type, bias type)
+
+--
+
+We selected only data from the years 2014 to 2024 to ensure relevance and to train a machine learning model on 10 years of data (2014-2023) and test it on the 2024 data. 
+
+---
+# Basic EDA
+
+<center>
+<img src="Presentation Images/AllCrimes2014-2024.png" style="width: 80%;" /> 
+</center>
+
+---
+# Basic EDA
+
+.pull-left[<center>
+<img src="Presentation Images/Antisemitic2014-2024.png" style="width: 100%;" /> 
+</center>]
+
+.pull-right[<center>
+<img src="Presentation Images/AntiLGBTQ2014-2024.png" style="width: 100%;" /> 
+</center>]
+
+---
+class: inverse
+
+<img src="Presentation Images/LGBTQbyGroup2014-2024.png" style="width: 100%;" />
+
+---
+# Basic EDA
+
+<img src="Presentation Images/AllCrimesMap.png" style="width: 100%;" /> 
+
+---
+# Basic EDA
+
+<img src="Presentation Images/AntisemiticMap.png" style="width: 100%;" /> 
+
+---
+# Basic EDA
+
+<img src="Presentation Images/AntiLGBTQMap.png" style="width: 100%;" /> 
+
+---
+# The ADL Antisemitic Incidents Dataset
+
+We pulled data from the past 10 years (2015-2025) from the Anti-Defamation League's Antisemitic Incidents Heat Map. 
+
+--
+
+Features include:
+- Date/Year
+- City/State/Location Type
+- Type of Attack/Ideology
+
+--
+
+This dataset tracks antisemitic, white supremacist, and terrorist incidents only.
+
+---
+## Basic EDA
+
+From the ADL dataset:
+- Number of Antisemitic Incidents: 37,004
+- Number of Anti-LGBTQ+ Incidents: 443
+- Number of Antisemitic AND Anti-LGBTQ+ Incidents: 358
+- Percent of Antisemitic Incidents that are Also Anti-LGBTQ+: 0.9675%
+- Percent of Anti-LGBTQ+ Incidents that are Also Antisemitic: 80.81%
+
+--
+
+Because this data only reports antisemitic and white supremacist incidents, it only reports anti-LGBTQ+ incidents which also fall into those categories. So, there does appear to be a number of correlated incidents. 
+
+---
+
+## Future Directions
+
+Further EDA & machine learning model to predict antisemitic or anti-LGBTQ+ hate crimes based on the state’s:
+- Region
+- Proportion of Jewish population
+- Estimated proportion of LGBTQ+ population
+- Level of hate crime protections
+- Balance of pro- to anti-LGBTQ+ legislation
+- Conservative/liberal balance
+- Level of ethnic diversity
