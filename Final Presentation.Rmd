@@ -1,0 +1,455 @@
+---
+title: "Tracking & Predicting Antisemitic and Anti-LGBTQ+ Hate Crimes in the United States"
+author: "Emily Diamond & Marin Moore"
+institute: "Dickinson College"
+date: "2026-05-12"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#50B4C8",
+  link_color = "#50B4C8",
+  header_font_google = google_font("Open Sans"),
+  text_font_google   = google_font("Fira Mono"),
+  code_font_google   = google_font("Fira Mono"),
+  header_h1_font_size = "2.75rem",
+  header_h2_font_size = "2rem",
+  header_h3_font_size = "1.5rem",
+  text_font_size = "1.2rem",
+  padding = "0px 64px 16px 64px",
+  header_background_padding = "4rem",
+  table_border_color = "#FFFFFF"
+)
+```
+```{css, echo=FALSE}
+.small-text {
+  font-size: 21px;
+}
+```
+# The FBI Hate Crimes Dataset
+
+This dataset includes all hate crimes reported to the FBI from 1991 to 2024.
+
+--
+
+Features include:
+- Geographic data (city, state, region)
+- Offender data (count, age, race, ethnicity)
+- Victim data (count, age, race, ethnicity)
+- Incident data (offense type, bias type)
+
+--
+
+For EDA, we selected only data from the years 2015 to 2024 to ensure data relevance. For correlation and regression analysis, we selected only data from 2024 to evaluate contemporary influencing factors rather than changes over time. 
+
+---
+## Basic EDA: Hate Crimes by Type
+
+<center>
+<img src="Presentation Images/Crimes2015-2024.png" style="width: 80%;" /> 
+</center>
+
+---
+## Basic EDA: All Hate Crimes by State
+
+<center>
+<img src="Presentation Images/AllCrimesMap2015-2024.png" style="width: 85%;" /> 
+</center>
+
+---
+## Basic EDA: Anti-LGBTQ+ Hate Crimes by State
+
+<center>
+<img src="Presentation Images/AntiLGBTQMap2015-2024.png" style="width: 85%;" /> 
+</center>
+
+---
+## Basic EDA: Antisemitic Hate Crimes by State
+
+<center>
+<img src="Presentation Images/AntisemiticMap2015-2024.png" style="width: 85%;" /> 
+</center>
+
+---
+# Secondary Data Sources
+
+- U.S. Census Bureau: state population, population density, % of population in poverty, median household income, and Diversity Index.
+
+--
+
+- U.S. Department of Justice: number of bias types covered by each state's hate crime laws.
+
+--
+
+- Jewish Virtual Library: Jewish population per state.
+
+--
+
+- World Population Review: state Political Voting Index (PVI).
+
+--
+
+- Human Rights Campaign: State Equality Index (SEI).
+
+--
+
+- Movement Advancement Project: state LGBTQ+ hate crime law protections.
+
+--
+
+- American Civil Liberties Union: state-level anti-LGBTQ+ bills introduced.
+
+---
+## Simple Correlation Analysis: All Crimes
+
+<div style="float: left; width: 65%;">
+<img src="Presentation Images/AllCrimesCorrelations.png" style="width: 100%;" /> 
+</div>
+<div style="float: left; width: 35%;">
+
+Higher hate crime reports per 100,000 residents for: 
+  <ul>
+    <li><b>Higher</b> population density</li>
+    <li><b>Higher</b> median household income</li>
+    <li><b>Lower</b> PVI (more Democratic)</li>
+    <li><b>Higher</b> hate crime law bias coverage</li>
+    <li><b>Higher</b> diversity index (more racial/ethnic diversity)</li>
+    <li><b>Higher</b> percent in poverty, although this effect is very low</li>
+  </ul>
+</div>
+
+---
+class: small-text
+## Simple Correlation Analysis: Anti-LGBTQ+ Crimes
+
+<div style="float: left; width: 65%;">
+<img src="Presentation Images/AntiLGBTQCorrelations.png" style="width: 100%;" /> 
+</div>
+<div style="float: left; width: 35%;">
+Higher anti-LGBTQ+ hate crime reports per 100,000 residents for: 
+  <ul>
+    <li><b>Higher</b> population density</li>
+    <li><b>Higher</b> median household income</li>
+    <li><b>Higher</b> percent in poverty</li>
+    <li><b>Higher</b> PVI (more Republican)</li>
+    <li><b>Higher</b> SEI (more LGBTQ+ legal protection)</li>
+    <li><b>Lower</b> diversity index (less racial/ethnic diversity)</li>    
+    <li><b>Lower</b> hate crime law bias coverage</li>
+  </ul>
+</div>
+
+---
+class: small-text
+## Simple Correlation Analysis: Antisemitic Crimes
+
+<div style="float: left; width: 65%;">
+<img src="Presentation Images/AntisemiticCorrelations.png" style="width: 100%;" /> 
+</div>
+<div style="float: left; width: 35%;">
+
+<b>Incidents & incidents per 100,000 residents</b>: higher hate crime reports for: 
+  <ul>
+    <li><b>Lower</b> PVI (more Democratic)</li>
+    <li><b>Higher</b> diversity index (more racial/ethnic diversity)</li>
+    <li><b>Higher</b> hate crime law bias coverage</li>
+  </ul>
+
+<b>Incidents per 1,000 Jews</b>: higher hate crime reports for: 
+  <ul>
+    <li><b>Higher</b> PVI (more Republican)</li>
+    <li><b>Lower</b> diversity index (less racial/ethnic diversity)</li>
+    <li><b>Lower</b> hate crime law bias coverage</li>
+  </ul>
+</div>
+
+---
+class: inverse
+# Conclusions from the Correlation Analysis
+
+States with a more Democratic-leaning PVI, states with higher LGBTQ+ legal equality, and states with stronger hate crime protections report higher numbers of hate crimes per 100,000 residents. 
+
+This is likely because such states tend to have more robust hate crime reporting procedures than Republican-leaning states with low LGBTQ+ equality and hate crime protections.
+
+--
+
+However, the opposite is true for antisemitic hate crimes per 1,000 Jewish residents. States with a more Republican-leaning PVI, states with lower racial/ethnic diversity, and states with weaker hate crime protections report higher numbers of hate crimes per 1,000 Jewish residents. 
+
+---
+## Lasso Regression Model: All Crimes
+
+Dependent variable: Incidents per 100,000 Residents
+
+R<sup>2</sup>: 0.788
+
+.pull-left[<table>
+  <tr>
+    <th>Predictor</th>
+    <th>Coefficient</th>
+  </tr>
+  <tr>
+    <td>Population Density</td>
+    <td>2.324</td>
+  </tr>
+  <tr>
+    <td>Median Household Income</td>
+    <td>1.533</td>
+  </tr>
+  <tr>
+    <td>Percent in Poverty</td>
+    <td>0.601</td>
+  </tr>
+  <tr>
+    <td>Diversity Index</td>
+    <td>-0.415</td>
+  </tr>
+  <tr>
+    <td>PVI</td>
+    <td>-0.003</td>
+  </tr>
+  <tr>
+    <td>Hate Crime Law Bias Coverage</td>
+    <td>-0.000</td>
+  </tr>
+</table>]
+
+--
+
+.pull-right[Higher hate crime reports per 100,000 residents for: 
+
+- **Higher** population density 
+- **Higher** median household income 
+- **Higher** percent in poverty 
+- **Lower** diversity index (less racial/ethnic diversity) 
+- **Lower** PVI (more Democratic), although this effect is very low]
+
+---
+class: small-text
+## Lasso Regression Model: Anti-LGBTQ+ Crimes
+
+Dependent variable: Incidents per 100,000 Residents
+
+R<sup>2</sup>: 0.838
+
+.pull-left[<table>
+  <tr>
+    <th>Predictor</th>
+    <th>Coefficient</th>
+  </tr>
+  <tr>
+    <td>Population Density</td>
+    <td>0.722</td>
+  </tr>
+  <tr>
+    <td>Median Household Income</td>
+    <td>0.509</td>
+  </tr>
+  <tr>
+    <td>Percent in Poverty</td>
+    <td>0.210</td>
+  </tr>
+  <tr>
+    <td>PVI</td>
+    <td>0.192</td>
+  </tr>
+  <tr>
+    <td>SEI</td>
+    <td>0.167</td>
+  </tr>
+  <tr>
+    <td>Diversity Index</td>
+    <td>-0.154</td>
+  </tr>
+  <tr>
+    <td>Hate Crime Law Bias Coverage</td>
+    <td>-0.026</td>
+  </tr>
+  <tr>
+    <td>AntiLGBTQ Legislation</td>
+    <td>-0.003</td>
+  </tr>
+  <tr>
+    <td>LGBTQ Hate Crime Coverage</td>
+    <td>-0.000</td>
+  </tr>
+</table>]
+
+--
+
+.pull-right[Higher anti-LGBTQ+ hate crime reports per 100,000 residents for: 
+
+- **Higher** population density 
+- **Higher** median household income 
+- **Higher** percent in poverty 
+- **Higher** PVI (more Republican) 
+- **Higher** SEI (more LGBTQ+ legal protection) 
+- **Lower** diversity index (less racial/ethnic diversity) 
+- **Lower** hate crime law bias coverage]
+
+---
+## Lasso Regression Model: Antisemitic Crimes
+
+Dependent variable: Incidents per 100,000 Residents
+
+R<sup>2</sup>: 0.498
+
+.pull-left[<table>
+  <tr>
+    <th>Predictor</th>
+    <th>Coefficient</th>
+  </tr>
+  <tr>
+    <td>Jewish Population</td>
+    <td>0.202</td>
+  </tr>
+  <tr>
+    <td>Median Household Income</td>
+    <td>0.156</td>
+  </tr>
+  <tr>
+    <td>PVI</td>
+    <td>-0.078</td>
+  </tr>
+  <tr>
+    <td>Percent in Poverty</td>
+    <td>-0.000</td>
+  </tr>
+  <tr>
+    <td>Diversity Index</td>
+    <td>-0.000</td>
+  </tr>
+  <tr>
+    <td>Population Density</td>
+    <td>0.000</td>
+  </tr>
+  <tr>
+    <td>Hate Crime Law Bias Coverage</td>
+    <td>0.000</td>
+  </tr>
+</table>]
+
+--
+
+.pull-right[Higher hate crime reports per 100,000 residents for: 
+
+- **Higher** Jewish population
+- **Higher** median household income
+- **Lower** PVI (more Democratic)]
+
+---
+# The ADL Antisemitic Incidents Dataset
+
+.pull-left[We pulled data from the Anti-Defamation League's Antisemitic Incidents Heat Map to track incidents missed by the FBI. 
+
+Features include:
+- Date/Year
+- City/State/Location Type
+- Type of Attack/Ideology
+
+This dataset tracks antisemitic, white supremacist, and terrorist incidents only.]
+
+.pull-right[<img src="Presentation Images/FBIvsADL.png" style="width: 100%;" />]
+
+---
+## Lasso Regression Model: Antisemitic Crimes (ADL)
+
+Dependent variable: Incidents per 100,000 Residents
+
+R<sup>2</sup>: 0.880
+
+.pull-left[<table>
+  <tr>
+    <th>Predictor</th>
+    <th>Coefficient</th>
+  </tr>
+  <tr>
+    <td>Population Density</td>
+    <td>2.560</td>
+  </tr>
+  <tr>
+    <td>PVI</td>
+    <td>-0.859</td>
+  </tr>
+  <tr>
+    <td>Diversity Index</td>
+    <td>-0.805</td>
+  </tr>
+  <tr>
+    <td>Median Household Income</td>
+    <td>0.651</td>
+  </tr>
+  <tr>
+    <td>Jewish Population</td>
+    <td>0.502</td>
+  </tr>
+  <tr>
+    <td>Hate Crime Law Bias Coverage</td>
+    <td>-0.248</td>
+  </tr>
+  <tr>
+    <td>Percent in Poverty</td>
+    <td>0.237</td>
+  </tr>
+</table>]
+
+--
+
+.pull-right[Higher hate crime reports per 100,000 residents for: 
+
+- **Higher** population density 
+- **Lower** PVI (more Democratic) 
+- **Lower** diversity index (less racial/ethnic diversity) 
+- **Higher** median household income 
+- **Higher** Jewish population
+- **Lower** hate crime law bias coverage
+- **Higher** percent in poverty]
+
+---
+class: inverse
+# Results & Interpretations
+
+Across these models, higher hate crime reports per 100,000 residents are generally associated with: 
+- Higher population density 
+- Higher median household income 
+- Higher percent in poverty 
+- Lower diversity index (less racial/ethnic diversity) 
+- Lower hate crime law bias coverage
+
+--
+
+These relationships suggest potential methods for addressing hate crimes, including lowering poverty rates and increasing the biases covered by hate crime laws. 
+
+---
+# Ethical Implications
+
+The amount of fear, hatred, and social unrest has been on the rise in the United States. Jewish Temples are being attacked, queer and transgender individuals are being violently targeted, and so much more. Many Americans are in a constant state of fear by simply existing. 
+
+--
+
+As the rise of hate crimes continues, it is critical that actions be taken to protect victims and prevent future crimes. Hate crime protection laws must be stricter and hate crime incident investigation and reporting must be improved.
+
+---
+class: small-text
+# Implications for Stakeholders
+
+Stakeholders in this research include Jewish and LGBTQ+ Americans, legislators and policymakers, law enforcement, lawyers and activist organizations. Additionally, all American citizens are impacted by these incidents because the proliferation of hate-motivated crimes threatens individual/group safety and national unity. This issue affects everyone.
+
+--
+
+Understanding the factors which correlate with antisemitic and anti-LGBTQ+ hate crimes is necessary for implementing effective preventative and protective measures. Without this understanding, the rate of these incidents will continue to rise.
+
+--
+
+Based on this research, such preventative measures may include:
+-	Improving reporting procedures and mandating reporting of hate crimes to the FBI
+-	Decreasing poverty rates
+-	Increasing the coverage of hate crime laws
+- Building compassion by learning with and about people of different religions, races, sexualities, opinions, and more
